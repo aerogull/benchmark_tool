@@ -2,14 +2,17 @@
 #include <time.h>
 #include <stdlib.h>
 #include <string.h>
-#include <windows.h>
+
 clock_t t;
+
 double time_taken;
 int passloop;
 double timetime;
+
 extern double m1[250][250];
 extern double m2[250][250];
 extern double c[250][250];
+
 int when_record(int indicator) {
     if (indicator == 0) {
         int answer;
@@ -25,88 +28,45 @@ int when_record(int indicator) {
         return indicator;
     }
 }
+
 void reset() {
     timetime = 0;
     passloop = 0;
 }
-void clear(int indicator){
-    if (indicator == 0){
-        FILE *f = fopen("scores1.txt", "w");
-        fclose(f);
-        f = fopen("scores2.txt", "w");
-        fclose(f);
-        f = fopen("scores3.txt", "w");
-        fclose(f);
-        f = fopen("scores4.txt", "w");
-        fclose(f);
-        f = fopen("scores5.txt", "w");
-        fclose(f);
-        f = fopen("scores6.txt", "w");
-        fclose(f);
-        f = fopen("scores7.txt", "w");
-        fclose(f);
-        f = fopen("scores8.txt", "w");
-        fclose(f);
-        f = fopen("scores9.txt", "w");
-        fclose(f);
-        f = fopen("scores10.txt", "w");
-        fclose(f);
+
+void clear(int indicator) {
+    FILE *f = NULL;
+
+    if (indicator == 0) {
+        for (int i = 1; i <= 10; i++) {
+            char filename[20];
+            snprintf(filename, sizeof(filename), "scores%d.txt", i);
+            f = fopen(filename, "w");
+            if (f) fclose(f);
+        }
+        return;
     }
-    switch (indicator){
-        case 1:
-            FILE *f = fopen("scores1.txt", "w");
-            fclose(f);
-            break;
-        case 2:
-            f = fopen("scores2.txt", "w");
-            fclose(f);
-            break;
-        case 3:
-            f = fopen("scores3.txt", "w");
-            fclose(f);
-            break;
-        case 4:
-            f = fopen("scores4.txt", "w");
-            fclose(f);
-            break;
-        case 5:
-            f = fopen("scores5.txt", "w");
-            fclose(f);
-            break;
-        case 6:
-            f = fopen("scores6.txt", "w");
-            fclose(f);
-            break;
-        case 7:
-            f = fopen("scores7.txt", "w");
-            fclose(f);
-            break;
-        case 8:
-            f = fopen("scores8.txt", "w");
-            fclose(f);
-            break;
-        case 9:
-            f = fopen("scores9.txt", "w");
-            fclose(f);
-            break;
-        case 10:
-            f = fopen("scores10.txt", "w");
-            fclose(f);
-            break;
-        default:
-            break;
+
+    if (indicator >= 1 && indicator <= 10) {
+        char filename[20];
+        snprintf(filename, sizeof(filename), "scores%d.txt", indicator);
+        f = fopen(filename, "w");
+        if (f) fclose(f);
     }
 }
+
 double startc() {
     t = clock();
     return t;
 }
+
 double endc() {
     t = clock() - t;
     time_taken = ((double)t) / (double)CLOCKS_PER_SEC;
     timetime += (double)time_taken;
     return time_taken;
 }
+
 int run_times(int indicator) {
     if (indicator == 0) {
         int answer;
@@ -118,6 +78,7 @@ int run_times(int indicator) {
         return indicator;
     }
 }
+
 void write_scores(int test) {
     if (passloop == 0) return;
     FILE *f = NULL;
@@ -163,6 +124,7 @@ void write_scores(int test) {
     fprintf(f, "%.10f\n", timetime / passloop);
     fclose(f);
 }
+
 void write_all_scores(int test) {
     //this is for writing the time of each test, and not the average
     FILE *f = NULL;
@@ -206,6 +168,7 @@ void write_all_scores(int test) {
     fprintf(f, "%.10f\n", time_taken);
     fclose(f);
 }
+
 void mult_mat(int not, int runs, int record){
     reset();
     int x,y;
@@ -236,6 +199,7 @@ void mult_mat(int not, int runs, int record){
         write_scores(1);
     }
 }
+
 void check_mat(int not, int runs, int record){
     reset();
     int x, y;
@@ -270,6 +234,7 @@ void check_mat(int not, int runs, int record){
         write_scores(2);
     }
 }
+
 void print_speed(int not, int runs, int record){
     reset();
     
@@ -290,6 +255,7 @@ void print_speed(int not, int runs, int record){
         write_scores(3);
     }
 }
+
 void string(long long int not, int runs, int record){
     reset();
     char string[2000000] = "c";
@@ -311,6 +277,7 @@ void string(long long int not, int runs, int record){
         write_scores(4);
     }
 }
+
 void pi(long long int not, int runs, int record){
     reset();
     long double p = 0;
@@ -336,12 +303,14 @@ void pi(long long int not, int runs, int record){
         write_scores(5);
     }
 }
+
 float fib(float num) {
     if (num <= 1){
         return num;
     }
     return fib(num-1) + fib(num-2);
 }
+
 void fib1(int not, int runs, int record){
     reset();
     for (passloop = 0; passloop < runs; passloop++) {
@@ -361,6 +330,7 @@ void fib1(int not, int runs, int record){
     }
     printf("%.10f\n", timetime / passloop);
 }
+
 void division(int not, int runs, int record){
     reset();
     int x, y;
@@ -390,11 +360,10 @@ void division(int not, int runs, int record){
         write_scores(7);
     }
 }
+
 void doubles(int not, int runs, int record){
     reset();
     long int number1 = 1;
-    
-    
     for (passloop = 0; passloop < runs; passloop++) {
         printf("Pass %d\n", passloop + 1);
         startc();
@@ -412,6 +381,7 @@ void doubles(int not, int runs, int record){
         write_scores(8);
     }
 }
+
 void file_write(int not, int runs, int record){
     reset();
     FILE *test = fopen("test", "a");
@@ -443,6 +413,7 @@ void file_write(int not, int runs, int record){
         write_scores(9);
     }
 }
+
 int fib3(int not) {
     int n1 = 0, n2 = 1, n3, i;
     for (i = 0; i <= not; i++) {
@@ -452,6 +423,7 @@ int fib3(int not) {
     }
     return n2;
 }
+
 void fib4(int not, int runs, int record){
     reset();
     for (passloop = 0; passloop < runs; passloop++) {
@@ -471,6 +443,7 @@ void fib4(int not, int runs, int record){
     }
     printf("%.10f\n", timetime / passloop);
 }
+
 void queue(){
     int tests[50];
     int runs[50];
@@ -519,6 +492,13 @@ void queue(){
         }
     }
 }
+
+void enterToContinue() {
+    printf("Press Enter to continue...");
+    while (getchar() != '\n');
+    getchar();
+}
+
 int main() {
     int ans;
     while (1) {
@@ -585,6 +565,6 @@ int main() {
         else {
             printf("Not a valid option.\n");
         }
-        system("pause");
+        enterToContinue();
     }
 }
