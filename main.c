@@ -520,50 +520,51 @@ int main() {
         printf("---------------------------------------------------------------\n");
         printf(">>");
         scanf("%d", &ans);
-        if (ans == 1) {
-            mult_mat(50000, run_times(0), when_record(0));
-        }
-        else if (ans == 2) {
-            check_mat(50000, run_times(0), when_record(0));
-        }
-        else if (ans == 3) {
-            print_speed(2000, run_times(0), when_record(0));
-        }
-        else if (ans == 4) {
-            string(300000, run_times(0), when_record(0));
-        }
-        else if (ans == 5) {
-            pi(1000000000, run_times(0), when_record(0));
-        }
-        else if (ans == 6) {
-            fib1(150, run_times(0), when_record(0));
-        }
-        else if (ans == 7) {
-            division(70000, run_times(0), when_record(0));
-        }
-        else if (ans == 8) {
-            doubles(900000000, run_times(0), when_record(0));
-        }
-        else if (ans == 9) {
-            file_write(100, run_times(0), when_record(0));
-        }
-        else if (ans == 10) {
-            fib4(100000, run_times(0), when_record(0));
-        }
-        else if (ans == 11) {
-            queue();
-        }
-        else if (ans == 12) {
-            printf("Enter the log number you would like to clear or 0 to clear all:");
-            int log;
-            scanf("%d", &log);
-            clear(log);
-        }
-        else if (ans == 0) {
-            return 0;
-        }
-        else {
-            printf("Not a valid option.\n");
+        switch(ans) {
+            case 1:
+                mult_mat(50000, run_times(0), when_record(0));
+                break;
+            case 2:
+                check_mat(50000, run_times(0), when_record(0));
+                break;
+            case 3:
+                print_speed(2000, run_times(0), when_record(0));
+                break;
+            case 4:
+                string(300000, run_times(0), when_record(0));
+                break;
+            case 5:
+                pi(1000000000, run_times(0), when_record(0));
+                break;
+            case 6:
+                fib1(150, run_times(0), when_record(0));
+                break;
+            case 7:
+                division(70000, run_times(0), when_record(0));
+                break;
+            case 8:
+                doubles(900000000, run_times(0), when_record(0));
+                break;
+            case 9:
+                file_write(100, run_times(0), when_record(0));
+                break;
+            case 10:
+                fib4(100000, run_times(0), when_record(0));
+                break;
+            case 11:
+                queue();
+                break;
+            case 12:
+                printf("Enter the log number you would like to clear or 0 to clear all: ");
+                int log;
+                scanf("%d", &log);
+                clear(log);
+                break;
+            case 0:
+                return 0;
+            default:
+                printf("Not a valid option.\n");
+                break;
         }
         enterToContinue();
     }
