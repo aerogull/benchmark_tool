@@ -36,7 +36,6 @@ void reset() {
 
 void clear(int indicator) {
     FILE *f = NULL;
-
     if (indicator == 0) {
         for (int i = 1; i <= 10; i++) {
             char filename[20];
@@ -46,7 +45,6 @@ void clear(int indicator) {
         }
         return;
     }
-
     if (indicator >= 1 && indicator <= 10) {
         char filename[20];
         snprintf(filename, sizeof(filename), "scores%d.txt", indicator);
@@ -80,43 +78,11 @@ int run_times(int indicator) {
 }
 
 void write_scores(int test) {
-    if (passloop == 0) return;
-    FILE *f = NULL;
-    switch (test) {
-        //opens and appends based on the test number
-        case 1:
-            f = fopen("scores1.txt", "a");
-            break;
-        case 2:
-            f = fopen("scores2.txt", "a");
-            break;
-        case 3:
-            f = fopen("scores3.txt", "a");
-            break;
-        case 4:
-            f = fopen("scores4.txt", "a");
-            break;
-        case 5:
-            f = fopen("scores5.txt", "a");
-            break;
-        case 6:
-            f = fopen("scores6.txt", "a");
-            break;
-        case 7:
-            f = fopen("scores7.txt", "a");
-            break;
-        case 8:
-            f = fopen("scores8.txt", "a");
-            break;
-        case 9:
-            f = fopen("scores9.txt", "a");
-            break;
-        case 10:
-            f = fopen("scores10.txt", "a");
-            break;
-        default:
-            return;
-    }
+    //opens and appends based on the test number
+    if (passloop == 0 || test < 1 || test > 10) return;
+    char filename[20];
+    snprintf(filename, sizeof(filename), "scores%d.txt", test);
+    FILE *f = fopen(filename, "a");
     if (f == NULL) {
         printf("Error opening file!\n");
         return;
@@ -126,45 +92,12 @@ void write_scores(int test) {
 }
 
 void write_all_scores(int test) {
-    //this is for writing the time of each test, and not the average
-    FILE *f = NULL;
-    switch (test) {
-        case 1:
-            f = fopen("scores1.txt", "a");
-            break;
-        case 2:
-            f = fopen("scores2.txt", "a");
-            break;
-        case 3:
-            f = fopen("scores3.txt", "a");
-            break;
-        case 4:
-            f = fopen("scores4.txt", "a");
-            break;
-        case 5:
-            f = fopen("scores5.txt", "a");
-            break;
-        case 6:
-            f = fopen("scores6.txt", "a");
-            break;
-        case 7:
-            f = fopen("scores7.txt", "a");
-            break;
-        case 8:
-            f = fopen("scores8.txt", "a");
-            break;
-        case 9:
-            f = fopen("scores9.txt", "a");
-            break;
-        case 10:
-            f = fopen("scores10.txt", "a");
-            break;
-        default:
-            return;
-    }
-    if (f == NULL) {
-        return;
-    }
+    // This is for writing the time of each test, and not the average
+    if (test < 1 || test > 10) return;
+    char filename[20];
+    snprintf(filename, sizeof(filename), "scores%d.txt", test);
+    FILE *f = fopen(filename, "a");
+    if (f == NULL) return;
     fprintf(f, "%.10f\n", time_taken);
     fclose(f);
 }
@@ -174,7 +107,6 @@ void mult_mat(int not, int runs, int record){
     int x,y;
     for (passloop = 0; passloop < runs; passloop++) {
         printf("Pass %d\n", passloop + 1);
-
         startc();
         int z;
         for (z = 0; z < not; z++) {
@@ -203,7 +135,6 @@ void mult_mat(int not, int runs, int record){
 void check_mat(int not, int runs, int record){
     reset();
     int x, y;
-    
     for (passloop = 0; passloop < runs; passloop++) {
         printf("Pass %d\n", passloop + 1);
         startc();
@@ -237,8 +168,6 @@ void check_mat(int not, int runs, int record){
 
 void print_speed(int not, int runs, int record){
     reset();
-    
-    
     for (passloop = 0; passloop < runs; passloop++) {
         startc();
         int z;
@@ -283,8 +212,6 @@ void pi(long long int not, int runs, int record){
     long double p = 0;
     long double cir = 68.65838503937458;
     long double rad = 10.9273213637231;
-    
-    
     for (passloop = 0; passloop < runs; passloop++) {
         printf("Pass %d\n", passloop + 1);
         startc();
